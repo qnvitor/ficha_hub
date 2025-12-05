@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha JLU RPG - Justice League Unlimited</title>
+    <link rel="stylesheet" href="jlu.css">
+    <link rel="stylesheet" href="print.css" media="print">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="btn-back-hub" aria-label="Voltar ao Hub">
+                ← Hub
+            </a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <h1>JUSTICE LEAGUE UNLIMITED</h1>
+            <h2>FICHA DE PERSONAGEM</h2>
+        </header>
+
+        <!-- Component Containers -->
+        <div id="character-info-container"></div>
+        <div id="attributes-container"></div>
+        <div id="combat-container"></div>
+        <div id="limitations-container"></div>
+        <div id="knowledge-container"></div>
+        <div id="capabilities-container"></div>
+    </div>
+
+    <!-- Floating Action Button Menu -->
+    <div class="fab-container">
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-option btn-primary" id="saveSheet">
+                <span class="fab-icon">💾</span>
+                <span class="fab-label">SALVAR JSON</span>
+            </button>
+            <button class="fab-option btn-secondary" id="printSheet">
+                <span class="fab-icon">🖨️</span>
+                <span class="fab-label">SALVAR PDF</span>
+            </button>
+            <button class="fab-option btn-success" id="exportSheet">
+                <span class="fab-icon">⬇️</span>
+                <span class="fab-label">EXPORTAR</span>
+            </button>
+            <label for="importFile" class="fab-option btn-secondary" style="cursor: pointer; margin: 0;">
+                <span class="fab-icon">⬆️</span>
+                <span class="fab-label">IMPORTAR</span>
+            </label>
+            <input type="file" id="importFile" accept=".json" style="display: none;">
+            <button class="fab-option btn-danger" id="clearSheet">
+                <span class="fab-icon">🗑️</span>
+                <span class="fab-label">LIMPAR</span>
+            </button>
+        </div>
+        <button class="fab-button" id="fabToggle">
+            <span class="fab-icon-main">⚙️</span>
+        </button>
+    </div>
+
+    <script src="../../assets/js/theme.js"></script>
+    <script type="module" src="jlu.js"></script>
+</body>
+
+</html>

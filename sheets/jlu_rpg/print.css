@@ -1,0 +1,251 @@
+﻿/* ============================================
+   ENHANCED PRINT STYLES FOR PDF
+   Only essential information
+   ============================================ */
+
+@media print {
+
+    /* Hide FAB, theme toggle, and back button */
+    .fab-container,
+    .theme-toggle,
+    .btn-back-hub {
+        display: none !important;
+    }
+
+    /* Optimize layout for printing */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 0;
+    }
+
+    /* Header - compact */
+    header h1 {
+        font-size: 18pt;
+        margin-bottom: 4px;
+    }
+
+    header h2 {
+        font-size: 12pt;
+        margin-bottom: 10px;
+    }
+
+    /* Section titles */
+    h3 {
+        font-size: 13pt;
+        margin: 8px 0 6px 0;
+        border-bottom: 2px solid #333;
+        padding-bottom: 2px;
+    }
+
+    /* Prevent page breaks inside sections */
+    .section {
+        page-break-inside: avoid;
+        margin-bottom: 12px;
+    }
+
+    /* Hide PAX details - show only PAX TOTAL */
+    .pax-grid .form-group:nth-child(2),
+    .pax-grid .form-group:nth-child(3) {
+        display: none !important;
+    }
+
+    /* ========== ATTRIBUTES - Hide header completely ========== */
+    .attribute-header,
+    .attributes-table .attribute-header,
+    div[class*="attribute"]>div:first-child {
+        display: none !important;
+    }
+
+    .attr-pax,
+    .attr-base,
+    .attr-mod,
+    input[class*="attr-pax"],
+    input[class*="attr-base"],
+    input[class*="attr-mod"] {
+        display: none !important;
+    }
+
+    .attribute-row {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* COMBAT - Hide all intermediate calculations */
+    .combat-grid .form-group:nth-child(1),
+    .combat-grid .form-group:nth-child(2),
+    .combat-grid .form-group:nth-child(3),
+    .combat-grid .form-group:nth-child(6),
+    .combat-grid .form-group:nth-child(7),
+    .combat-grid .form-group:nth-child(8) {
+        display: none !important;
+    }
+
+    /* DETERMINATION - Hide intermediate values */
+    .det-grid .form-group:nth-child(1),
+    .det-grid .form-group:nth-child(2),
+    .det-grid .form-group:nth-child(3) {
+        display: none !important;
+    }
+
+    /* HIDE CONDITIONS COMPLETELY */
+    .conditions,
+    div[class*="condition"],
+    .penalty-display {
+        display: none !important;
+    }
+
+    /* ========== Hide ALL buttons ========== */
+    button,
+    .btn-add,
+    .btn-remove,
+    button[class*="btn"],
+    button[id*="add"],
+    label[class*="btn"] {
+        display: none !important;
+    }
+
+    /* ========== CAPABILITIES - Show header but hide AÇÃO column ========== */
+    .cap-header {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr 1fr !important;
+        gap: 8px !important;
+        padding: 8px !important;
+        background: #f0f0f0 !important;
+        border: 1px solid #999 !important;
+        font-weight: bold !important;
+        font-size: 9pt !important;
+    }
+
+    /* Hide only the 4th column span (AÇÃO) */
+    .cap-header span:nth-child(4) {
+        display: none !important;
+    }
+
+    /* Hide only the action button */
+    .cap-row>button,
+    .cap-row>.btn-remove {
+        display: none !important;
+    }
+
+    /* Keep grid with 3 columns: NAME, PAX, GRAU */
+    .cap-row {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr 1fr !important;
+        gap: 8px !important;
+        padding: 8px !important;
+        border: 1px solid #999 !important;
+        margin-bottom: 6px !important;
+    }
+
+    /* ========== LIMITATIONS - Hide header and adjust grid ========== */
+    .limitation-header {
+        display: none !important;
+    }
+
+    .limitation-row {
+        display: grid !important;
+        grid-template-columns: 2fr 3fr !important;
+        gap: 8px !important;
+        padding: 6px !important;
+        border: 1px solid #999 !important;
+        margin-bottom: 4px !important;
+    }
+
+    .limitation-row>*:nth-child(3) {
+        display: none !important;
+    }
+
+    /* ========== KNOWLEDGE - Hide header and adjust grid ========== */
+    .knowledge-header {
+        display: none !important;
+    }
+
+    .knowledge-row {
+        display: grid !important;
+        grid-template-columns: 1fr 3fr !important;
+        gap: 8px !important;
+        padding: 6px !important;
+        border: 1px solid #999 !important;
+        margin-bottom: 4px !important;
+    }
+
+    .knowledge-row>*:nth-child(3) {
+        display: none !important;
+    }
+
+    /* Compact input fields */
+    input,
+    textarea,
+    select {
+        border: 1px solid #666 !important;
+        background: white !important;
+        color: black !important;
+        padding: 3px 6px !important;
+        font-size: 10pt !important;
+    }
+
+    /* Hide placeholders in print - show empty fields instead */
+    input::placeholder,
+    textarea::placeholder,
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder,
+    input::-moz-placeholder,
+    textarea::-moz-placeholder,
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+    }
+
+    textarea {
+        min-height: 30px !important;
+        resize: none !important;
+    }
+
+    /* Compact grids */
+    .form-grid,
+    .attribute-table,
+    .combat-grid,
+    .det-grid {
+        gap: 6px !important;
+    }
+
+    /* Labels more compact */
+    label {
+        font-size: 9pt !important;
+        font-weight: 600 !important;
+    }
+
+    /* Ensure good contrast */
+    .highlight input,
+    input[readonly] {
+        background: #f0f0f0 !important;
+        font-weight: bold !important;
+    }
+
+    /* Page breaks */
+    .two-column {
+        page-break-inside: avoid;
+    }
+
+    /* Combat grid - 2 columns layout */
+    .combat-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* Determination grid - horizontal layout */
+    .det-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
