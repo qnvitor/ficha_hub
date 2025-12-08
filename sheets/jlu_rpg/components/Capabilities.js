@@ -28,7 +28,7 @@ class Capabilities {
                 <input type="text" class="cap-name" placeholder="Nome da Capacidade" value="${cap.name}" data-index="${index}">
                 <textarea class="cap-desc" placeholder="Descrição da capacidade" data-index="${index}">${cap.desc || ''}</textarea>
                 <input type="number" class="cap-pax" value="${cap.pax}" min="0" data-index="${index}">
-                <div class="cap-grade">${cap.grade}</div>
+                <input type="number" class="cap-grade" value="${cap.grade}" min="0" data-index="${index}">
                 <label class="checkbox-label">
                     <input type="checkbox" class="cap-counts-pax" data-index="${index}" ${cap.countsForPAX === false ? 'checked' : ''}>
                     <span>Não conta PAX</span>
@@ -69,6 +69,7 @@ class Capabilities {
         const nameInputs = this.container.querySelectorAll('.cap-name');
         const descInputs = this.container.querySelectorAll('.cap-desc');
         const paxInputs = this.container.querySelectorAll('.cap-pax');
+        const gradeInputs = this.container.querySelectorAll('.cap-grade');
         const removeButtons = this.container.querySelectorAll('.btn-remove');
 
         nameInputs.forEach(input => {
@@ -92,9 +93,20 @@ class Capabilities {
                 const index = parseInt(input.dataset.index);
                 const pax = parseInt(input.value) || 0;
                 this.data.capabilities[index].pax = pax;
+                // Auto-calculate grade from PAX when PAX changes
                 this.data.capabilities[index].grade = calculateGrade(pax);
-                this.calculateTotalPAX();
                 this.updateGradeDisplay(index);
+                this.calculateTotalPAX();
+            });
+        });
+
+        // Grade inputs - allow manual editing
+        gradeInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                const index = parseInt(input.dataset.index);
+                const grade = parseInt(input.value) || 0;
+                this.data.capabilities[index].grade = grade;
+                emit('capability:updated', this.data);
             });
         });
 
@@ -141,9 +153,9 @@ class Capabilities {
     }
 
     updateGradeDisplay(index) {
-        const gradeDiv = this.container.querySelector(`.cap-row[data-index="${index}"] .cap-grade`);
-        if (gradeDiv) {
-            gradeDiv.textContent = this.data.capabilities[index].grade;
+        const gradeInput = this.container.querySelector(`.cap-row[data-index="${index}"] .cap-grade`);
+        if (gradeInput) {
+            gradeInput.value = this.data.capabilities[index].grade;
         }
         emit('capability:pax-changed', this.data);
     }
