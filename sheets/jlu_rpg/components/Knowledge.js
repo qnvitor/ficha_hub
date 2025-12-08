@@ -1,6 +1,6 @@
 // ========================================
 // KNOWLEDGE COMPONENT
-// Manages: Character skills/knowledge with description
+// Manages: Character skills/knowledge
 // Each knowledge costs 4 PAX
 // ========================================
 
@@ -22,8 +22,11 @@ class Knowledge {
         const rows = this.knowledges.map((knowledge, index) => `
             <div class="knowledge-row" data-index="${index}">
                 <input type="text" class="knowledge-name" value="${knowledge.name}" placeholder="Ex: Investigação">
-                <textarea class="knowledge-desc" placeholder="Descrição do conhecimento">${knowledge.desc}</textarea>
-                <button class="btn-remove" data-index="${index}">Remover</button>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="knowledge-counts-pax" data-index="${index}" ${knowledge.countsForPAX === false ? 'checked' : ''}>
+                    <span>Não conta PAX</span>
+                </label>
+                <button class="btn-remove" data-index="${index}">✕</button>
             </div>
         `).join('');
 
@@ -33,7 +36,7 @@ class Knowledge {
                 <div class="knowledge-table">
                     <div class="knowledge-header">
                         <span>CONHECIMENTO</span>
-                        <span>DESCRIÇÃO</span>
+                        <span>NÃO CONTA PAX</span>
                         <span>AÇÃO</span>
                     </div>
                     <div class="knowledge-list">
@@ -68,7 +71,6 @@ class Knowledge {
         // Input changes
         this.container.querySelectorAll('.knowledge-row').forEach((row, index) => {
             const nameInput = row.querySelector('.knowledge-name');
-            const descInput = row.querySelector('.knowledge-desc');
 
             if (nameInput) {
                 nameInput.addEventListener('change', () => {
@@ -77,9 +79,11 @@ class Knowledge {
                 });
             }
 
-            if (descInput) {
-                descInput.addEventListener('change', () => {
-                    this.knowledges[index].desc = descInput.value;
+            const countsPaxCheckbox = row.querySelector('.knowledge-counts-pax');
+            if (countsPaxCheckbox) {
+                countsPaxCheckbox.addEventListener('change', () => {
+                    this.knowledges[index].countsForPAX = !countsPaxCheckbox.checked;
+                    this.emitKnowledgePax();
                 });
             }
         });
@@ -87,7 +91,7 @@ class Knowledge {
 
     addKnowledge() {
         console.log('addKnowledge called, current knowledges:', this.knowledges.length);
-        this.knowledges.push({ name: '', desc: '' });
+        this.knowledges.push({ name: '', countsForPAX: true });
         console.log('After push, knowledges:', this.knowledges.length);
         this.render();
         this.attachListeners();
@@ -102,8 +106,10 @@ class Knowledge {
     }
 
     emitKnowledgePax() {
-        // Each knowledge costs 4 PAX
-        const totalPax = this.knowledges.length * 4;
+        // Each knowledge costs 4 PAX, but only if it counts for PAX
+        const totalPax = this.knowledges.reduce((sum, knowledge) => {
+            return sum + (knowledge.countsForPAX !== false ? 4 : 0);
+        }, 0);
         emit('knowledge:pax-updated', { paxGastos: totalPax });
     }
 
@@ -123,6 +129,12 @@ class Knowledge {
         } else {
             this.knowledges = [];
         }
+
+        // Ensure all knowledges have countsForPAX default
+        this.knowledges = this.knowledges.map(knowledge => ({
+            ...knowledge,
+            countsForPAX: knowledge.countsForPAX !== undefined ? knowledge.countsForPAX : true
+        }));
 
         console.log('this.knowledges after setData:', this.knowledges);
         this.render();

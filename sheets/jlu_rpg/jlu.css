@@ -382,6 +382,29 @@ input[readonly] {
     font-weight: 600;
 }
 
+/* Checkbox label for PAX counting */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.checkbox-label span {
+    white-space: nowrap;
+}
+
 .penalty-display {
     background: var(--danger);
     padding: 12px;
@@ -423,7 +446,7 @@ input[readonly] {
 .cap-header,
 .cap-row {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 80px;
+    grid-template-columns: 2fr 3fr 1fr 1fr 120px 80px;
     gap: 12px;
     align-items: center;
     padding: 12px;
@@ -453,6 +476,19 @@ input[readonly] {
 
 .cap-row input {
     padding: 8px;
+}
+
+.cap-desc {
+    min-height: 60px;
+    resize: vertical;
+    padding: 10px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 1.5;
 }
 
 .cap-grade {
@@ -658,7 +694,7 @@ input[readonly] {
 
 .trait-row {
     display: grid;
-    grid-template-columns: 2fr 3fr 80px 80px;
+    grid-template-columns: 2fr 3fr 80px 120px 80px;
     gap: 12px;
     align-items: start;
     padding: 12px;
@@ -683,7 +719,7 @@ input[readonly] {
 .knowledge-header,
 .knowledge-row {
     display: grid;
-    grid-template-columns: 1fr 3fr 80px;
+    grid-template-columns: 1fr 120px 80px;
     gap: 12px;
     align-items: center;
     padding: 12px;
@@ -734,6 +770,7 @@ input[readonly] {
     background: #229954;
     box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
 }
+
 /* Knowledge textarea styling */
 .knowledge-desc {
     min-height: 60px;
@@ -784,7 +821,7 @@ input[readonly] {
 /* Trait header and updated grid with PAX */
 .trait-header {
     display: grid;
-    grid-template-columns: 2fr 3fr 80px 80px;
+    grid-template-columns: 2fr 3fr 80px 120px 80px;
     gap: 12px;
     align-items: center;
     padding: 12px;
@@ -798,6 +835,87 @@ input[readonly] {
 }
 
 .trait-pax {
+    padding: 10px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* ========================================
+   ITEMS COMPONENT
+   ======================================== */
+
+.items-table {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 100px 120px 80px;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    background: var(--highlight);
+    font-weight: 600;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr 100px 120px 80px;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.item-row:hover {
+    background: var(--card-bg);
+    border-color: var(--border-accent);
+}
+
+.item-name {
+    padding: 10px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.item-desc {
+    min-height: 60px;
+    resize: vertical;
+    padding: 10px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.item-pax {
     padding: 10px 12px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -885,17 +1003,32 @@ input[readonly] {
     opacity: 0;
 }
 
-.fab-option:nth-child(1) { animation-delay: 0.05s; }
-.fab-option:nth-child(2) { animation-delay: 0.1s; }
-.fab-option:nth-child(3) { animation-delay: 0.15s; }
-.fab-option:nth-child(4) { animation-delay: 0.2s; }
-.fab-option:nth-child(5) { animation-delay: 0.25s; }
+.fab-option:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.fab-option:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.fab-option:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.fab-option:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.fab-option:nth-child(5) {
+    animation-delay: 0.25s;
+}
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -921,21 +1054,21 @@ input[readonly] {
         bottom: 16px;
         right: 16px;
     }
-    
+
     .fab-button {
         width: 56px;
         height: 56px;
     }
-    
+
     .fab-option {
         padding: 10px 16px;
         font-size: 0.85rem;
     }
-    
+
     .fab-label {
         display: none;
     }
-    
+
     .fab-option {
         width: 48px;
         height: 48px;
@@ -950,32 +1083,35 @@ input[readonly] {
    ============================================ */
 
 @media print {
+
     /* Hide FAB and theme toggle when printing */
     .fab-container,
     .theme-toggle,
     .btn-back-hub {
         display: none !important;
     }
-    
+
     /* Optimize layout for printing */
     body {
         background: white !important;
         color: black !important;
     }
-    
+
     .container {
         max-width: 100%;
         padding: 0;
         margin: 0;
     }
-    
+
     /* Prevent page breaks inside sections */
     .section {
         page-break-inside: avoid;
     }
-    
+
     /* Ensure good contrast for printing */
-    input, textarea, select {
+    input,
+    textarea,
+    select {
         border: 1px solid #333 !important;
         background: white !important;
         color: black !important;

@@ -23,7 +23,11 @@ class Traits {
                 <input type="text" class="trait-name" value="${trait.name}" placeholder="Ex: Voo">
                 <textarea class="trait-desc" placeholder="Descrição do traço">${trait.desc || ''}</textarea>
                 <input type="number" class="trait-pax" value="${trait.pax || 0}" min="0" placeholder="0">
-                <button class="btn-remove" data-index="${index}">Remover</button>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="trait-counts-pax" data-index="${index}" ${trait.countsForPAX === false ? 'checked' : ''}>
+                    <span>Não conta PAX</span>
+                </label>
+                <button class="btn-remove" data-index="${index}">✕</button>
             </div>
         `).join('');
 
@@ -35,6 +39,7 @@ class Traits {
                         <span>TRAÇO</span>
                         <span>DESCRIÇÃO</span>
                         <span>PAX</span>
+                        <span>NÃO CONTA PAX</span>
                         <span>AÇÃO</span>
                     </div>
                     ${rows}
@@ -82,11 +87,19 @@ class Traits {
                     this.emitTraitsPax();
                 });
             }
+
+            const countsPaxCheckbox = row.querySelector('.trait-counts-pax');
+            if (countsPaxCheckbox) {
+                countsPaxCheckbox.addEventListener('change', () => {
+                    this.traits[index].countsForPAX = !countsPaxCheckbox.checked;
+                    this.emitTraitsPax();
+                });
+            }
         });
     }
 
     addTrait() {
-        this.traits.push({ name: '', desc: '', pax: 0 });
+        this.traits.push({ name: '', desc: '', pax: 0, countsForPAX: true });
         this.render();
         this.attachListeners();
         this.emitTraitsPax();
@@ -100,8 +113,10 @@ class Traits {
     }
 
     emitTraitsPax() {
-        // Sum all PAX from traits
-        const totalPax = this.traits.reduce((sum, trait) => sum + (trait.pax || 0), 0);
+        // Sum all PAX from traits that count for PAX
+        const totalPax = this.traits.reduce((sum, trait) => {
+            return sum + (trait.countsForPAX !== false ? (trait.pax || 0) : 0);
+        }, 0);
         emit('traits:pax-updated', { paxGastos: totalPax });
     }
 
@@ -111,6 +126,11 @@ class Traits {
 
     setData(data) {
         this.traits = Array.isArray(data) ? data : [];
+        // Ensure all traits have countsForPAX default
+        this.traits = this.traits.map(trait => ({
+            ...trait,
+            countsForPAX: trait.countsForPAX !== undefined ? trait.countsForPAX : true
+        }));
         this.render();
         this.attachListeners();
         this.emitTraitsPax();

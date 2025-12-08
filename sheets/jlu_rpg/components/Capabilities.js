@@ -26,8 +26,13 @@ class Capabilities {
         const rows = this.data.capabilities.map((cap, index) => `
             <div class="cap-row" data-index="${index}">
                 <input type="text" class="cap-name" placeholder="Nome da Capacidade" value="${cap.name}" data-index="${index}">
+                <textarea class="cap-desc" placeholder="Descrição da capacidade" data-index="${index}">${cap.desc || ''}</textarea>
                 <input type="number" class="cap-pax" value="${cap.pax}" min="0" data-index="${index}">
                 <div class="cap-grade">${cap.grade}</div>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="cap-counts-pax" data-index="${index}" ${cap.countsForPAX === false ? 'checked' : ''}>
+                    <span>Não conta PAX</span>
+                </label>
                 <button class="btn-remove" data-index="${index}">✕</button>
             </div>
         `).join('');
@@ -38,8 +43,10 @@ class Capabilities {
                 <div class="capabilities-table">
                     <div class="cap-header">
                         <span>NOME DA CAPACIDADE</span>
+                        <span>DESCRIÇÃO</span>
                         <span>PAX GASTOS</span>
                         <span>GRAU</span>
+                        <span>NÃO CONTA PAX</span>
                         <span>AÇÃO</span>
                     </div>
                     <div id="capabilitiesList">
@@ -60,6 +67,7 @@ class Capabilities {
 
         // Capability inputs
         const nameInputs = this.container.querySelectorAll('.cap-name');
+        const descInputs = this.container.querySelectorAll('.cap-desc');
         const paxInputs = this.container.querySelectorAll('.cap-pax');
         const removeButtons = this.container.querySelectorAll('.btn-remove');
 
@@ -67,6 +75,14 @@ class Capabilities {
             input.addEventListener('change', () => {
                 const index = parseInt(input.dataset.index);
                 this.data.capabilities[index].name = input.value;
+                emit('capability:updated', this.data);
+            });
+        });
+
+        descInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const index = parseInt(input.dataset.index);
+                this.data.capabilities[index].desc = input.value;
                 emit('capability:updated', this.data);
             });
         });
@@ -79,6 +95,16 @@ class Capabilities {
                 this.data.capabilities[index].grade = calculateGrade(pax);
                 this.calculateTotalPAX();
                 this.updateGradeDisplay(index);
+            });
+        });
+
+        // Checkbox for counting PAX (when checked, does NOT count for PAX)
+        const countsPaxCheckboxes = this.container.querySelectorAll('.cap-counts-pax');
+        countsPaxCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const index = parseInt(checkbox.dataset.index);
+                this.data.capabilities[index].countsForPAX = !checkbox.checked;
+                this.calculateTotalPAX();
             });
         });
 
@@ -98,7 +124,7 @@ class Capabilities {
     }
 
     addCapability() {
-        this.data.capabilities.push({ name: '', pax: 0, grade: 0 });
+        this.data.capabilities.push({ name: '', desc: '', pax: 0, grade: 0, countsForPAX: true });
         this.render();
         this.attachListeners();
         this.subscribeToEvents();
@@ -123,7 +149,9 @@ class Capabilities {
     }
 
     calculateTotalPAX() {
-        this.data.paxGastos = this.data.capabilities.reduce((sum, cap) => sum + cap.pax, 0);
+        this.data.paxGastos = this.data.capabilities.reduce((sum, cap) => {
+            return sum + (cap.countsForPAX !== false ? cap.pax : 0);
+        }, 0);
         emit('capabilities:pax-updated', { paxGastos: this.data.paxGastos });
     }
 
@@ -140,10 +168,11 @@ class Capabilities {
     setData(data) {
         this.data = { ...this.data, ...data };
 
-        // Ensure all capabilities have grade calculated
+        // Ensure all capabilities have grade calculated and countsForPAX default
         this.data.capabilities = this.data.capabilities.map(cap => ({
             ...cap,
-            grade: calculateGrade(cap.pax)
+            grade: calculateGrade(cap.pax),
+            countsForPAX: cap.countsForPAX !== undefined ? cap.countsForPAX : true
         }));
 
         this.calculateTotalPAX();

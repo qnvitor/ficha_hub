@@ -9,6 +9,7 @@ import Combat from './components/Combat.js';
 import Capabilities from './components/Capabilities.js';
 import Limitations from './components/Limitations.js';
 import Knowledge from './components/Knowledge.js';
+import Items from './components/Items.js';
 
 import { saveSheet, loadSheet, clearSheet, exportSheet, importSheet } from './utils/storage.js';
 import { on } from './utils/events.js';
@@ -71,6 +72,13 @@ class JLUSheet {
             console.log('✓ Capabilities initialized');
         } catch (error) {
             console.error('✗ Capabilities failed:', error);
+        }
+
+        try {
+            this.components.items = new Items('items-container');
+            console.log('✓ Items initialized');
+        } catch (error) {
+            console.error('✗ Items failed:', error);
         }
 
         console.log('Component initialization complete');
@@ -139,7 +147,8 @@ class JLUSheet {
             'capability:updated',
             'limitations:updated',
             'traits:updated',
-            'knowledge:updated'
+            'knowledge:updated',
+            'items:updated'
         ];
 
         autoSaveEvents.forEach(eventName => {
