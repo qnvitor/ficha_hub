@@ -1,7 +1,7 @@
 // ========================================
 // ATTRIBUTES COMPONENT
 // Manages: All 6 attributes (Potência, Precisão, Agilidade, Resistência, Mente, Espírito)
-// PAX System: Every 5 PAX = +1 BASE, TOTAL = BASE + MOD
+// PAX System: Every 5 PAX = +3 BASE, TOTAL = BASE + MOD
 // ========================================
 
 import { emit, on } from '../utils/events.js';
@@ -92,8 +92,8 @@ class Attributes {
     calculateAttribute(attr) {
         const { pax, mod } = this.data[attr];
 
-        // Calculate BASE from PAX: every 5 PAX = +1 BASE
-        const base = Math.floor(pax / 5);
+        // Calculate BASE from PAX: every 5 PAX = +3 BASE
+        const base = Math.floor(pax / 5) * 3;
         this.data[attr].base = base;
 
         // Calculate TOTAL: BASE + MOD (PAX doesn't count directly)
