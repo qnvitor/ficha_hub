@@ -59,6 +59,12 @@ class CharacterInfo {
             this.traitsPax = data.paxGastos || 0;
             this.calculatePAX();
         });
+
+        // Listen for Items PAX
+        on('items:pax-updated', (data) => {
+            this.itemsPax = data.paxGastos || 0;
+            this.calculatePAX();
+        });
     }
 
     calculatePAX() {
@@ -67,8 +73,9 @@ class CharacterInfo {
         const determinationPax = this.determinationPax || 0;
         const knowledgePax = this.knowledgePax || 0;
         const traitsPax = this.traitsPax || 0;
+        const itemsPax = this.itemsPax || 0;
 
-        this.data.paxGastos = attributesPax + capabilitiesPax + determinationPax + knowledgePax + traitsPax;
+        this.data.paxGastos = attributesPax + capabilitiesPax + determinationPax + knowledgePax + traitsPax + itemsPax;
         this.data.paxDisponiveis = this.data.paxTotal - this.data.paxGastos;
 
         // Update display
