@@ -9,6 +9,7 @@ import Combat from './components/Combat.js';
 import Capabilities from './components/Capabilities.js';
 import Limitations from './components/Limitations.js';
 import Knowledge from './components/Knowledge.js';
+import Traits from './components/Traits.js';
 import Items from './components/Items.js';
 
 import { saveSheet, loadSheet, clearSheet, exportSheet, importSheet } from './utils/storage.js';
@@ -65,6 +66,13 @@ class JLUSheet {
             console.log('✓ Knowledge initialized');
         } catch (error) {
             console.error('✗ Knowledge failed:', error);
+        }
+
+        try {
+            this.components.traits = new Traits('traits-container');
+            console.log('✓ Traits initialized');
+        } catch (error) {
+            console.error('✗ Traits failed:', error);
         }
 
         try {

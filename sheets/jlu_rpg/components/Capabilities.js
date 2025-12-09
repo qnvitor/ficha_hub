@@ -39,7 +39,7 @@ class Capabilities {
 
         this.container.innerHTML = `
             <section class="section capabilities">
-                <h3>CAPACIDADES HERÓICAS E TRAÇOS</h3>
+                <h3>CAPACIDADES HERÓICAS</h3>
                 <div class="capabilities-table">
                     <div class="cap-header">
                         <span>NOME DA CAPACIDADE</span>
