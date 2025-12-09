@@ -92,10 +92,21 @@ class Capabilities {
             input.addEventListener('input', () => {
                 const index = parseInt(input.dataset.index);
                 const pax = parseInt(input.value) || 0;
+                const oldPax = this.data.capabilities[index].pax || 0;
                 this.data.capabilities[index].pax = pax;
-                // Auto-calculate grade from PAX when PAX changes
-                this.data.capabilities[index].grade = calculateGrade(pax);
-                this.updateGradeDisplay(index);
+                
+                // Only auto-calculate grade if PAX changed significantly or grade matches old calculated value
+                // This preserves manually edited grades
+                const oldCalculatedGrade = calculateGrade(oldPax);
+                const currentGrade = this.data.capabilities[index].grade || 0;
+                
+                // If current grade matches the old calculated grade, it means it wasn't manually edited
+                // So we can safely recalculate. Otherwise, preserve the manual edit.
+                if (currentGrade === oldCalculatedGrade || currentGrade === undefined) {
+                    this.data.capabilities[index].grade = calculateGrade(pax);
+                    this.updateGradeDisplay(index);
+                }
+                
                 this.calculateTotalPAX();
             });
         });
@@ -181,9 +192,12 @@ class Capabilities {
         this.data = { ...this.data, ...data };
 
         // Ensure all capabilities have grade calculated and countsForPAX default
+        // Preserve manually edited grades if they exist
         this.data.capabilities = this.data.capabilities.map(cap => ({
             ...cap,
-            grade: calculateGrade(cap.pax),
+            // Only calculate grade if it doesn't exist or is undefined
+            // This preserves manually edited grades
+            grade: cap.grade !== undefined ? cap.grade : calculateGrade(cap.pax),
             countsForPAX: cap.countsForPAX !== undefined ? cap.countsForPAX : true
         }));
 
