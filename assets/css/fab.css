@@ -1,0 +1,161 @@
+/* ============================================
+   FLOATING ACTION BUTTON (FAB) MENU
+   Global component for character sheets
+   ============================================ */
+
+.fab-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.fab-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.fab-button:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.fab-button.active {
+    transform: rotate(45deg);
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.fab-icon-main {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+}
+
+.fab-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.fab-menu.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+}
+
+.fab-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    animation: fadeInUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+.fab-option:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.fab-option:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.fab-option:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.fab-option:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.fab-option:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fab-option:hover {
+    transform: translateX(-4px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.fab-icon {
+    font-size: 18px;
+}
+
+.fab-label {
+    font-size: 0.85rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .fab-container {
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .fab-button {
+        width: 56px;
+        height: 56px;
+    }
+
+    .fab-option {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+
+    .fab-label {
+        display: none;
+    }
+
+    .fab-option {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+    }
+}
+
+/* Hide FAB when printing */
+@media print {
+    .fab-container {
+        display: none !important;
+    }
+}
+

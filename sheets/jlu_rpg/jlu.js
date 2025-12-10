@@ -14,6 +14,7 @@ import Items from './components/Items.js';
 
 import { saveSheet, loadSheet, clearSheet, exportSheet, importSheet } from './utils/storage.js';
 import { on } from './utils/events.js';
+import { initFAB } from '../../assets/js/fab.js';
 
 class JLUSheet {
     constructor() {
@@ -25,7 +26,7 @@ class JLUSheet {
     init() {
         console.log('Initializing JLU Sheet...');
         this.initializeComponents();
-        this.attachGlobalListeners();
+        this.initFAB();
         this.setupAutoSave();
         this.loadSheet();
         console.log('JLU Sheet initialized successfully!');
@@ -92,56 +93,31 @@ class JLUSheet {
         console.log('Component initialization complete');
     }
 
-    attachGlobalListeners() {
-        // Save button
-        const saveBtn = document.getElementById('saveSheet');
-        if (saveBtn) {
-            saveBtn.addEventListener('click', () => this.saveSheet());
-        }
-
-        // Print button (Save as PDF)
-        const printBtn = document.getElementById('printSheet');
-        if (printBtn) {
-            printBtn.addEventListener('click', () => this.printSheet());
-        }
-
-        // Clear button
-        const clearBtn = document.getElementById('clearSheet');
-        if (clearBtn) {
-            clearBtn.addEventListener('click', () => this.confirmClearSheet());
-        }
-
-        // Export button
-        const exportBtn = document.getElementById('exportSheet');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', () => this.exportSheet());
-        }
-
-        // Import file input
-        const importFile = document.getElementById('importFile');
-        if (importFile) {
-            importFile.addEventListener('change', (e) => this.handleImport(e));
-        }
-
-        // FAB Toggle
-        const fabToggle = document.getElementById('fabToggle');
-        const fabMenu = document.getElementById('fabMenu');
-        if (fabToggle && fabMenu) {
-            fabToggle.addEventListener('click', () => {
-                fabMenu.classList.toggle('active');
-                fabToggle.classList.toggle('active');
-            });
-
-            // Close FAB when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.fab-container')) {
-                    fabMenu.classList.remove('active');
-                    fabToggle.classList.remove('active');
+    initFAB() {
+        initFAB({
+            onSave: () => this.saveSheet(),
+            onPrint: () => this.printSheet(),
+            onExport: () => this.exportSheet(),
+            onImport: async (file) => {
+                try {
+                    const sheetData = await importSheet(file);
+                    // Load imported data into components
+                    Object.keys(this.components).forEach(key => {
+                        if (sheetData[key]) {
+                            this.components[key].setData(sheetData[key]);
+                        }
+                    });
+                    // Save to localStorage
+                    saveSheet(sheetData);
+                    this.showNotification('📥 Ficha importada com sucesso!', 'success');
+                } catch (error) {
+                    console.error('Import error:', error);
+                    this.showNotification('❌ Erro ao importar ficha', 'error');
                 }
-            });
-        }
-
-        console.log('Global listeners attached');
+            },
+            onClear: () => this.confirmClearSheet()
+        });
+        console.log('FAB initialized');
     }
 
     setupAutoSave() {
