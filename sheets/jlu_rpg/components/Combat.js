@@ -17,10 +17,10 @@ class Combat {
             atkTotal: 0,
 
             // Defense
-            defBase: 10,
+            defBase: 0,
             defResist: 0,
             defMod: 0,
-            defTotal: 10,
+            defTotal: 0,
 
             // Damage Reduction (fixed value, no calculation)
             rdTotal: 0,
@@ -140,8 +140,8 @@ class Combat {
                         </div>
 
                         <div class="form-group">
-                            <label>BASE DEFESA</label>
-                            <input type="number" id="defBase" value="${this.data.defBase}">
+                            <label>BASE DEFESA (TIER)</label>
+                            <input type="number" id="defBase" value="${this.data.defBase}" readonly>
                         </div>
                         <div class="form-group">
                             <label>RESISTÊNCIA</label>
@@ -167,8 +167,8 @@ class Combat {
     }
 
     attachListeners() {
-        // Combat modifiers
-        ['atkMod', 'defBase', 'defMod', 'rdTotal'].forEach(id => {
+        // Combat modifiers (defBase is readonly, updated by tier)
+        ['atkMod', 'defMod', 'rdTotal'].forEach(id => {
             const input = this.container.querySelector(`#${id}`);
             if (input) {
                 input.addEventListener('input', () => {
@@ -287,7 +287,7 @@ class Combat {
 
     updateDisplay() {
         // Update all readonly fields
-        const fields = ['atkTierBase', 'atkPrec', 'atkTotal', 'defResist', 'defTotal',
+        const fields = ['atkTierBase', 'atkPrec', 'atkTotal', 'defBase', 'defResist', 'defTotal',
             'rdTotal', 'detBase', 'detEsp', 'detTotal', 'detAtual', 'dadoDano'];
 
         fields.forEach(field => {
