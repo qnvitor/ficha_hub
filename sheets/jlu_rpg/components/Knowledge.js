@@ -41,9 +41,9 @@ class Knowledge {
                     </div>
                     <div class="knowledge-list">
                         ${rows}
-                    </div>
-                    <button class="btn-add" id="addKnowledge">+ Adicionar Conhecimento</button>
+                    </div>  
                 </div>
+                <button class="btn-add" id="addKnowledge">+ Adicionar Conhecimento</button>
             </section>
         `;
     }

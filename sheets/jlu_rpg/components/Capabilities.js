@@ -52,8 +52,8 @@ class Capabilities {
                     <div id="capabilitiesList">
                         ${rows}
                     </div>
-                    <button id="addCapability" class="btn-add">+ ADICIONAR CAPACIDADE</button>
                 </div>
+                <button id="addCapability" class="btn-add">+ ADICIONAR CAPACIDADE</button>
             </section>
         `;
     }

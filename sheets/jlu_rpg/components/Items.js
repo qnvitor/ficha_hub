@@ -48,8 +48,8 @@ class Items {
                     <div class="items-list">
                         ${rows}
                     </div>
-                    <button id="addItem" class="btn-add">+ ADICIONAR ITEM</button>
                 </div>
+                <button id="addItem" class="btn-add">+ ADICIONAR ITEM</button>
             </section>
         `;
     }

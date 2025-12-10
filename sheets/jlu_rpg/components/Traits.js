@@ -43,8 +43,8 @@ class Traits {
                         <span>AÇÃO</span>
                     </div>
                     ${rows}
-                    <button class="btn-add" id="addTrait">+ Adicionar Traço</button>
                 </div>
+                <button class="btn-add" id="addTrait">+ Adicionar Traço</button>
             </section>
         `;
     }

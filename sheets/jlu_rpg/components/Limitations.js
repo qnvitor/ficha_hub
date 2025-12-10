@@ -31,8 +31,15 @@ class Limitations {
         this.container.innerHTML = `
             <section class="section limitations">
                 <h3>LIMITAÇÕES</h3>
-                <div class="limitations-list">
-                    ${rows}
+                <div class="limitations-table">
+                    <div class="limitations-header">
+                        <span>LIMITAÇÃO</span>
+                        <span>DESCRIÇÃO</span>
+                        <span>AÇÃO</span>
+                    </div>
+                    <div class="limitations-list">
+                        ${rows}
+                    </div>
                 </div>
                 <button id="addLimitation" class="btn-add">+ ADICIONAR LIMITAÇÃO</button>
             </section>

@@ -5,15 +5,15 @@
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #34495e;
-    --accent-color: #3498db;
-    --bg-color: #f5f6fa;
-    --card-bg: #ffffff;
+    --accent-color: #593559;
+    --bg-color: #cfcfcf;
+    --card-bg: #fffaec;
     --text-dark: #2c3e50;
     --text-muted: #7f8c8d;
-    --border-color: #dfe6e9;
-    --border-accent: #3498db;
+    --border-color: #092e7d;
+    --border-accent: #eaa339;
     --success: #27ae60;
-    --danger: #e74c3c;
+    --danger: #951703;
     --warning: #f39c12;
     --highlight: #ecf0f1;
 }
@@ -22,15 +22,15 @@
 [data-theme="dark"] {
     --primary-color: #ecf0f1;
     --secondary-color: #bdc3c7;
-    --accent-color: #3498db;
+    --accent-color: #2f82b9;
     --bg-color: #1a1a2e;
     --card-bg: #16213e;
     --text-dark: #ecf0f1;
     --text-muted: #95a5a6;
-    --border-color: #2c3e50;
-    --border-accent: #3498db;
-    --success: #27ae60;
-    --danger: #e74c3c;
+    --border-color: #092e7d;
+    --border-accent: #eaa339;
+    --success: #006414;
+    --danger: #951703;
     --warning: #f39c12;
     --highlight: #0f1729;
 }
@@ -324,7 +324,8 @@ input[readonly] {
 
 .two-column {
     display: grid;
-    grid-template-columns: 60fr 40fr;
+    min-width: 0;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
@@ -339,11 +340,14 @@ input[readonly] {
     margin-bottom: 20px;
 }
 
-.conditions {
-    background: var(--bg-color);
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+.condition-grid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+    align-items: center;
+    width: 100%;
 }
 
 .condition-list {
@@ -351,18 +355,21 @@ input[readonly] {
     flex-direction: column;
     gap: 8px;
     margin-bottom: 15px;
+    width: 100%;
+    max-width: 1500px;
 }
 
 .condition-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px;
-    background: var(--card-bg);
+    padding: 10px 20px 10px 20px;
+    background: var(--bg-color);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
+    width: 100%;
 }
 
 .condition-item:hover {
@@ -410,13 +417,11 @@ input[readonly] {
     padding: 12px;
     border-radius: 6px;
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
     color: white;
-}
-
-.penalty-display span {
-    font-size: 1.2rem;
+    width: 100%;
+    max-width: 1000px;
 }
 
 /* ========================================
@@ -425,8 +430,20 @@ input[readonly] {
 
 .combat-grid {
     display: grid;
+    min-width: 0;
+    width: 100%;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+}
+
+.combat-grid > * {
+    min-width: 0;
+}
+
+.combat-grid input,
+.combat-grid select {
+    min-width: 0;
+    width: 100%;
 }
 
 .combat-grid .full-width {
@@ -658,7 +675,7 @@ input[readonly] {
 
 .limitation-row {
     display: grid;
-    grid-template-columns: 2fr 3fr 80px 80px;
+    grid-template-columns: 2fr 3fr 80px;
     gap: 12px;
     align-items: start;
     padding: 12px;
@@ -666,11 +683,32 @@ input[readonly] {
     border: 1px solid var(--border-color);
     border-radius: 6px;
     transition: all 0.2s ease;
+    width: 100%;
+    min-width: 0;
+}
+
+.limitation-row > * {
+    min-width: 0;
 }
 
 .limitation-row:hover {
     background: var(--card-bg);
     border-color: var(--border-accent);
+}
+
+.limitations-header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 80px;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    background: var(--highlight);
+    font-weight: 600;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
 }
 
 .limitation-name,
@@ -717,14 +755,16 @@ input[readonly] {
 }
 
 /* Knowledge */
-.knowledge-table {
+.knowledge-table,
+.limitations-table {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 .knowledge-header,
-.knowledge-row {
+.knowledge-row
+ {
     display: grid;
     grid-template-columns: 1fr 120px 80px;
     gap: 12px;
@@ -733,7 +773,8 @@ input[readonly] {
     border-radius: 6px;
 }
 
-.knowledge-header {
+.knowledge-header,
+.limitations-header {
     background: var(--highlight);
     font-weight: 600;
     color: var(--text-dark);
@@ -742,13 +783,15 @@ input[readonly] {
     border: 1px solid var(--border-color);
 }
 
-.knowledge-list {
+.knowledge-list,
+.limitations-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.knowledge-row {
+.knowledge-row,
+.limitation-row {
     background: var(--bg-color);
     border: 1px solid var(--border-color);
     transition: all 0.2s ease;
@@ -759,7 +802,6 @@ input[readonly] {
     border-color: var(--border-accent);
 }
 
-/* Success Button */
 .btn-success {
     background: var(--success);
     color: white;
@@ -778,7 +820,6 @@ input[readonly] {
     box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
 }
 
-/* Knowledge textarea styling */
 .knowledge-desc {
     min-height: 60px;
     resize: vertical;
@@ -801,7 +842,6 @@ input[readonly] {
     font-size: 0.95rem;
 }
 
-/* Trait textarea and PAX input */
 .trait-desc {
     min-height: 60px;
     resize: vertical;

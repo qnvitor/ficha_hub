@@ -57,9 +57,9 @@ class Combat {
     render() {
         this.container.innerHTML = `
             <div class="two-column">
-                <!-- Determinação e Condições -->
+                <!-- Determinação -->
                 <section class="section determination">
-                    <h3>DETERMINAÇÃO E CONDIÇÕES</h3>
+                    <h3>DETERMINAÇÃO</h3>
                     <div class="det-grid">
                         <div class="form-group">
                             <label>DET. BASE (TIER)</label>
@@ -80,35 +80,6 @@ class Combat {
                         <div class="form-group current">
                             <label>DET. ATUAL</label>
                             <input type="number" id="detAtual" value="${this.data.detAtual}" min="0">
-                        </div>
-                    </div>
-
-                    <div class="conditions">
-                        <h4>CONDIÇÕES</h4>
-                        <div class="condition-list">
-                            <label class="condition-item">
-                                <input type="checkbox" id="condCansado" ${this.data.conditions.condCansado ? 'checked' : ''}>
-                                <span>CANSADO (0)</span>
-                            </label>
-                            <label class="condition-item">
-                                <input type="checkbox" id="condArranhado" ${this.data.conditions.condArranhado ? 'checked' : ''}>
-                                <span>ARRANHADO (-1)</span>
-                            </label>
-                            <label class="condition-item">
-                                <input type="checkbox" id="condFerido" ${this.data.conditions.condFerido ? 'checked' : ''}>
-                                <span>FERIDO (-2)</span>
-                            </label>
-                            <label class="condition-item">
-                                <input type="checkbox" id="condGrave" ${this.data.conditions.condGrave ? 'checked' : ''}>
-                                <span>GRAVEMENTE FERIDO (-4)</span>
-                            </label>
-                            <label class="condition-item">
-                                <input type="checkbox" id="condDerrotado" ${this.data.conditions.condDerrotado ? 'checked' : ''}>
-                                <span>DERROTADO</span>
-                            </label>
-                        </div>
-                        <div class="penalty-display">
-                            <strong>PENALIDADE TOTAL:</strong> <span id="penaltyTotal">${this.data.penaltyTotal}</span>
                         </div>
                     </div>
                 </section>
@@ -163,6 +134,37 @@ class Combat {
                     </div>
                 </section>
             </div>
+            <!-- Condições -->
+            <section class=" section conditions">
+                <h3>CONDIÇÕES</h3>
+                <div class="condition-grid">
+                    <div class="condition-list">
+                        <label class="condition-item">
+                            <input type="checkbox" id="condCansado" ${this.data.conditions.condCansado ? 'checked' : ''}>
+                            <span>CANSADO (0)</span>
+                        </label>
+                        <label class="condition-item">
+                            <input type="checkbox" id="condArranhado" ${this.data.conditions.condArranhado ? 'checked' : ''}>
+                            <span>ARRANHADO (-1)</span>
+                        </label>
+                        <label class="condition-item">
+                            <input type="checkbox" id="condFerido" ${this.data.conditions.condFerido ? 'checked' : ''}>
+                            <span>FERIDO (-2)</span>
+                        </label>
+                        <label class="condition-item">
+                            <input type="checkbox" id="condGrave" ${this.data.conditions.condGrave ? 'checked' : ''}>
+                            <span>GRAVEMENTE FERIDO (-4)</span>
+                        </label>
+                        <label class="condition-item">
+                            <input type="checkbox" id="condDerrotado" ${this.data.conditions.condDerrotado ? 'checked' : ''}>
+                            <span>DERROTADO</span>
+                        </label>
+                    </div>
+                    <div class="penalty-display">
+                         <strong>PENALIDADE TOTAL:</strong> <span id="penaltyTotal">${this.data.penaltyTotal}</span>
+                    </div>
+                </div>
+            </section>
         `;
     }
 
