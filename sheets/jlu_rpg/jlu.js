@@ -209,13 +209,55 @@ class JLUSheet {
             input.placeholder = '';
         });
 
+        // Expand all textareas to show full content
+        const allTextareas = document.querySelectorAll('textarea');
+        const originalHeights = [];
+        
+        allTextareas.forEach((textarea, index) => {
+            // Store original height
+            originalHeights[index] = {
+                element: textarea,
+                height: textarea.style.height,
+                rows: textarea.rows
+            };
+            
+            // Reset height to auto to calculate scrollHeight
+            textarea.style.height = 'auto';
+            textarea.style.overflow = 'visible';
+            
+            // Set height based on scrollHeight (content height)
+            const scrollHeight = textarea.scrollHeight;
+            textarea.style.height = scrollHeight + 'px';
+            
+            // Ensure no scrollbars
+            textarea.style.overflowY = 'visible';
+            textarea.style.overflowX = 'visible';
+        });
+
+        // Listen for beforeprint to ensure textareas are expanded
+        window.addEventListener('beforeprint', () => {
+            allTextareas.forEach((textarea) => {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+                textarea.style.overflow = 'visible';
+                textarea.style.overflowY = 'visible';
+            });
+        }, { once: true });
+
         // Trigger browser print dialog
         window.print();
 
-        // Restore placeholders after print dialog closes
+        // Restore original state after print dialog closes
         setTimeout(() => {
+            // Restore placeholders
             allInputs.forEach((input, index) => {
                 input.placeholder = placeholders[index];
+            });
+            
+            // Restore textarea heights
+            originalHeights.forEach(({ element, height, rows }) => {
+                element.style.height = height || '';
+                if (rows !== undefined) element.rows = rows;
             });
         }, 100);
     }

@@ -1,62 +1,312 @@
 ﻿/* ============================================
-   ENHANCED PRINT STYLES FOR PDF
-   Only essential information
+   TRADITIONAL RPG CHARACTER SHEET PRINT STYLE
+   Classic two-column layout with black bars
    ============================================ */
 
 @media print {
+    /* Page setup */
+    @page {
+        margin: 1cm;
+        size: A4;
+    }
 
-    /* Hide FAB, theme toggle, and back button */
+    /* Hide non-essential elements */
     .fab-container,
     .theme-toggle,
     .btn-back-hub {
         display: none !important;
     }
 
-    /* Optimize layout for printing */
+    /* Base typography and layout */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
     body {
         background: white !important;
-        color: black !important;
-        font-size: 11pt;
+        color: #000 !important;
+        font-size: 10pt;
+        line-height: 1.4;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     .container {
         max-width: 100%;
-        padding: 10px;
+        padding: 0;
         margin: 0;
     }
 
-    /* Header - compact */
+    /* ========== HEADER ========== */
+    header {
+        background: white !important;
+        border: none !important;
+        padding: 10px 0 15px 0 !important;
+        margin-bottom: 15px !important;
+        page-break-after: avoid;
+        text-align: left !important;
+    }
+
     header h1 {
-        font-size: 18pt;
-        margin-bottom: 4px;
+        font-size: 18pt !important;
+        margin-bottom: 3px !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
     }
 
     header h2 {
-        font-size: 12pt;
-        margin-bottom: 10px;
+        font-size: 9pt !important;
+        margin-bottom: 0 !important;
+        color: #666 !important;
+        font-weight: 400 !important;
+        text-transform: uppercase !important;
     }
 
-    /* Section titles */
-    h3 {
-        font-size: 13pt;
-        margin: 8px 0 6px 0;
-        border-bottom: 2px solid #333;
-        padding-bottom: 2px;
-    }
-
-    /* Prevent page breaks inside sections */
+    /* ========== SECTIONS ========== */
     .section {
         page-break-inside: avoid;
-        margin-bottom: 12px;
+        margin-bottom: 12px !important;
+        background: white !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
     }
 
-    /* Hide PAX details - show only PAX TOTAL */
+    /* Section titles with black vertical bar */
+    h3 {
+        font-size: 11pt !important;
+        margin: 12px 0 8px 0 !important;
+        padding: 4px 0 4px 8px !important;
+        border-left: 4px solid #000 !important;
+        border-bottom: none !important;
+        background: white !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        position: relative;
+    }
+
+    h4 {
+        font-size: 9pt !important;
+        margin: 10px 0 6px 0 !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+
+    /* Hide PAX subtitle in identification section */
+    .identification h4 {
+        display: none !important;
+    }
+
+    /* ========== FORM ELEMENTS ========== */
+    .form-grid {
+        gap: 8px !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    }
+
+    .form-group {
+        margin-bottom: 0 !important;
+    }
+
+    label {
+        font-size: 7.5pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        margin-bottom: 2px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        display: block !important;
+    }
+
+    /* Input fields - simple grey boxes */
+    input[type="text"],
+    input[type="number"],
+    select {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        padding: 4px 6px !important;
+        font-size: 9.5pt !important;
+        border-radius: 0 !important;
+        font-family: inherit !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Readonly/total fields - darker grey */
+    input[readonly],
+    .highlight input {
+        background: #d0d0d0 !important;
+        border: 1px solid #666 !important;
+        border-bottom: 2px solid #666 !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+    }
+
+    textarea {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        padding: 4px 6px !important;
+        min-height: unset !important;
+        height: unset !important;
+        max-height: none !important;
+        resize: none !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        font-family: inherit !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        vertical-align: top !important;
+        /* Remove any rows-based height constraint */
+        rows: auto !important;
+        /* Force content-based sizing where supported */
+        field-sizing: content !important;
+        /* Ensure no scrollbars are shown */
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
+    }
+
+    textarea::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* Hide placeholders */
+    input::placeholder,
+    textarea::placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+    }
+
+    /* Ensure all descriptions display completely - override any inline styles */
+    textarea,
+    .cap-desc,
+    .limitation-desc,
+    .knowledge-desc,
+    .trait-desc,
+    .item-desc {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        display: block !important;
+        /* Remove any rows attribute effect */
+        rows: auto !important;
+        /* Force content-based sizing */
+        field-sizing: content !important;
+    }
+
+    /* Remove scrollbars completely */
+    textarea::-webkit-scrollbar,
+    .cap-desc::-webkit-scrollbar,
+    .limitation-desc::-webkit-scrollbar,
+    .knowledge-desc::-webkit-scrollbar,
+    .trait-desc::-webkit-scrollbar,
+    .item-desc::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    textarea,
+    .cap-desc,
+    .limitation-desc,
+    .knowledge-desc,
+    .trait-desc,
+    .item-desc {
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
+    }
+
+    /* ========== PAX SECTION ========== */
+    /* Integrate PAX TOTAL into the main form-grid */
+    .pax-grid {
+        display: contents !important;
+        gap: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Hide PAX GASTOS and PAX DISPONÍVEIS */
     .pax-grid .form-group:nth-child(2),
     .pax-grid .form-group:nth-child(3) {
         display: none !important;
     }
 
-    /* ========== ATTRIBUTES - Hide header completely ========== */
+    /* Make PAX TOTAL appear inline with other form fields */
+    .pax-grid .form-group:first-child {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Ensure form-grid includes PAX TOTAL seamlessly */
+    .identification .form-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    /* First row: NOME DO HERÓI, IDENTIDADE SECRETA, ARQUÉTIPO, ORIGEM (form-groups 1-4) */
+    .identification .form-group:nth-child(1) {
+        grid-row: 1 !important;
+        grid-column: 1 !important; /* Nome do Herói */
+    }
+
+    .identification .form-group:nth-child(2) {
+        grid-row: 1 !important;
+        grid-column: 2 !important; /* Identidade Secreta */
+    }
+
+    .identification .form-group:nth-child(3) {
+        grid-row: 1 !important;
+        grid-column: 3 !important; /* Arquétipo */
+    }
+
+    .identification .form-group:nth-child(4) {
+        grid-row: 1 !important;
+        grid-column: 4 !important; /* Origem */
+    }
+
+    /* Second row: TIER (form-group 5) and PAX TOTAL */
+    .identification .form-group:nth-child(5) {
+        grid-row: 2 !important;
+        grid-column: 1 / 3 !important; /* TIER ocupa 2 colunas */
+    }
+
+    /* PAX TOTAL - second row, columns 3-4 */
+    /* Como pax-grid usa display: contents, seus filhos são contados como filhos do form-grid */
+    /* Então o PAX TOTAL será o 6º elemento direto do form-grid (após os 5 form-groups) */
+    .identification .form-grid > .pax-grid > .form-group:first-child,
+    .identification .form-grid .form-group:nth-child(6) {
+        grid-row: 2 !important;
+        grid-column: 3 / 5 !important; /* PAX TOTAL ocupa 2 colunas */
+    }
+
+    /* ========== ATTRIBUTES ========== */
+    .attributes-table {
+        gap: 4px !important;
+    }
+
     .attribute-header,
     .attributes-table .attribute-header,
     div[class*="attribute"]>div:first-child {
@@ -72,13 +322,49 @@
         display: none !important;
     }
 
-    .attribute-row {
+    .attr-row {
         display: grid !important;
-        grid-template-columns: 2fr 1fr !important;
+        grid-template-columns: 1.5fr 1fr !important;
+        gap: 8px !important;
+        padding: 4px 0 !important;
+        border: none !important;
+        margin-bottom: 4px !important;
+        background: white !important;
+        align-items: center !important;
+    }
+
+    .attr-name {
+        font-weight: 700 !important;
+        color: #000 !important;
+        font-size: 9.5pt !important;
+        text-transform: uppercase !important;
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        padding: 4px 6px !important;
+        border-radius: 0 !important;
+    }
+
+    .attr-total {
+        background: #d0d0d0 !important;
+        border: 1px solid #666 !important;
+        border-bottom: 2px solid #666 !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        text-align: center !important;
+        padding: 4px 6px !important;
+        border-radius: 0 !important;
+        font-size: 9.5pt !important;
+    }
+
+    /* ========== COMBAT ========== */
+    .combat-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
         gap: 8px !important;
     }
 
-    /* COMBAT - Hide all intermediate calculations */
+    /* Hide intermediate calculation fields */
     .combat-grid .form-group:nth-child(1),
     .combat-grid .form-group:nth-child(2),
     .combat-grid .form-group:nth-child(3),
@@ -88,21 +374,73 @@
         display: none !important;
     }
 
-    /* DETERMINATION - Hide intermediate values */
+    /* First row: BÔNUS DE ATAQUE (4) and DADO DE DANO (5) */
+    .combat-grid .form-group:nth-child(4) {
+        /* BÔNUS DE ATAQUE - first column, first row */
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    .combat-grid .form-group:nth-child(5) {
+        /* DADO DE DANO - second column, first row */
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+    }
+
+    /* Second row: DEFESA TOTAL (9) and REDUÇÃO DE DANO (10) */
+    .combat-grid .form-group:nth-child(9) {
+        /* DEFESA TOTAL - first column, second row */
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+    }
+
+    .combat-grid .form-group:nth-child(10) {
+        /* REDUÇÃO DE DANO - second column, second row */
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+    }
+
+    /* ========== DETERMINATION ========== */
+    .det-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 0 !important;
+    }
+
     .det-grid .form-group:nth-child(1),
     .det-grid .form-group:nth-child(2),
     .det-grid .form-group:nth-child(3) {
         display: none !important;
     }
 
-    /* HIDE CONDITIONS COMPLETELY */
+    /* Remove extra spacing from determination section */
+    .section.determination {
+        margin-bottom: 12px !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Ensure combat section has same spacing */
+    .section.combat {
+        margin-bottom: 12px !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* Ensure two-column container doesn't add extra spacing */
+    .two-column {
+        gap: 20px !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* ========== CONDITIONS ========== */
     .conditions,
     div[class*="condition"],
     .penalty-display {
         display: none !important;
     }
 
-    /* ========== Hide ALL buttons ========== */
+    /* ========== BUTTONS ========== */
     button,
     .btn-add,
     .btn-remove,
@@ -112,140 +450,345 @@
         display: none !important;
     }
 
-    /* ========== CAPABILITIES - Show header but hide AÇÃO column ========== */
+    /* ========== CAPABILITIES ========== */
+    .capabilities-table {
+        border: 2px solid #000 !important;
+        background: white !important;
+        padding: 0 !important;
+        margin-top: 8px !important;
+        overflow: hidden !important;
+    }
+
+    /* Hide header completely */
     .cap-header {
-        display: grid !important;
-        grid-template-columns: 2fr 1fr 1fr !important;
-        gap: 8px !important;
-        padding: 8px !important;
-        background: #f0f0f0 !important;
-        border: 1px solid #999 !important;
-        font-weight: bold !important;
-        font-size: 9pt !important;
-    }
-
-    /* Hide only the 4th column span (AÇÃO) */
-    .cap-header span:nth-child(4) {
         display: none !important;
     }
 
-    /* Hide only the action button */
-    .cap-row>button,
-    .cap-row>.btn-remove {
-        display: none !important;
+    /* Capability rows container */
+    .capabilities-table #capabilitiesList {
+        background: white !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
-    /* Keep grid with 3 columns: NAME, PAX, GRAU */
+    /* Capability row - horizontal layout with name+desc on left, PAX on right */
     .cap-row {
         display: grid !important;
-        grid-template-columns: 2fr 1fr 1fr !important;
-        gap: 8px !important;
-        padding: 8px !important;
-        border: 1px solid #999 !important;
-        margin-bottom: 6px !important;
+        grid-template-columns: 1fr 50px !important;
+        gap: 12px !important;
+        padding: 8px 12px !important;
+        border-bottom: 1px solid #ccc !important;
+        margin: 0 !important;
+        background: white !important;
+        align-items: start !important;
+        min-height: 28px !important;
     }
 
-    /* ========== LIMITATIONS - Hide header and adjust grid ========== */
-    .limitation-header {
+    .cap-row:last-child {
+        border-bottom: none !important;
+    }
+
+    /* Hide button, checkbox, and PAX */
+    .cap-row>button,
+    .cap-row>.btn-remove,
+    .cap-row>label,
+    .cap-row input.cap-pax {
+        display: none !important;
+    }
+
+    /* Container for name and description on the left */
+    .cap-row > :nth-child(1),
+    .cap-row > :nth-child(2) {
+        grid-column: 1 !important;
+    }
+
+    /* Name and description should stack vertically or flow inline */
+    .cap-row input.cap-name,
+    .cap-row .cap-name {
+        border: none !important;
+        background: transparent !important;
+        border-bottom: 1px solid #999 !important;
+        padding: 2px 4px 2px 0 !important;
+        font-size: 9pt !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        margin-bottom: 2px !important;
+    }
+
+    .cap-row textarea.cap-desc,
+    .cap-row .cap-desc {
+        border: none !important;
+        background: transparent !important;
+        border-bottom: 1px solid #999 !important;
+        padding: 2px 4px 2px 0 !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        resize: none !important;
+        width: 100% !important;
+        min-height: 20px !important;
+        height: auto !important;
+        overflow: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        display: block !important;
+        box-sizing: border-box !important;
+    }
+
+    /* GRAU column on the right - second grid column */
+    .cap-row input.cap-grade,
+    .cap-row .cap-grade {
+        grid-column: 2 !important;
+        grid-row: 1 / -1 !important;
+        border: none !important;
+        background: transparent !important;
+        border-bottom: 1px solid #999 !important;
+        padding: 2px 4px !important;
+        font-size: 9pt !important;
+        width: 100% !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ========== LIMITATIONS ========== */
+    .limitations-table {
+        gap: 6px !important;
+    }
+
+    /* Hide limitation header */
+    .limitation-header,
+    .limitations-header {
         display: none !important;
     }
 
     .limitation-row {
         display: grid !important;
-        grid-template-columns: 2fr 3fr !important;
+        grid-template-columns: 1.5fr 3fr !important;
         gap: 8px !important;
-        padding: 6px !important;
-        border: 1px solid #999 !important;
-        margin-bottom: 4px !important;
+        padding: 6px 0 !important;
+        border: none !important;
+        margin-bottom: 6px !important;
+        background: white !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .limitation-row:last-child {
+        border-bottom: none !important;
     }
 
     .limitation-row>*:nth-child(3) {
         display: none !important;
     }
 
-    /* ========== KNOWLEDGE - Hide header and adjust grid ========== */
+    .limitation-name {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+    }
+
+    .limitation-desc {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 4px 6px !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        field-sizing: content !important;
+    }
+
+    /* ========== KNOWLEDGE ========== */
+    .knowledge-table {
+        gap: 6px !important;
+    }
+
     .knowledge-header {
         display: none !important;
     }
 
     .knowledge-row {
         display: grid !important;
-        grid-template-columns: 1fr 3fr !important;
+        grid-template-columns: 1fr !important;
         gap: 8px !important;
-        padding: 6px !important;
-        border: 1px solid #999 !important;
-        margin-bottom: 4px !important;
+        padding: 6px 0 !important;
+        border: none !important;
+        margin-bottom: 6px !important;
+        background: white !important;
+        border-bottom: 1px solid #ccc !important;
     }
 
+    .knowledge-row:last-child {
+        border-bottom: none !important;
+    }
+
+    /* Hide checkbox and button in knowledge rows */
+    .knowledge-row>*:nth-child(2),
     .knowledge-row>*:nth-child(3) {
         display: none !important;
     }
 
-    /* Compact input fields */
-    input,
-    textarea,
-    select {
-        border: 1px solid #666 !important;
-        background: white !important;
-        color: black !important;
-        padding: 3px 6px !important;
-        font-size: 10pt !important;
+    .knowledge-name {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    /* Hide placeholders in print - show empty fields instead */
-    input::placeholder,
-    textarea::placeholder,
-    input::-webkit-input-placeholder,
-    textarea::-webkit-input-placeholder,
-    input::-moz-placeholder,
-    textarea::-moz-placeholder,
-    input:-ms-input-placeholder,
-    textarea:-ms-input-placeholder {
-        color: transparent !important;
-        opacity: 0 !important;
+    .knowledge-desc {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 4px 6px !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        field-sizing: content !important;
     }
 
-    textarea {
-        min-height: 30px !important;
-        resize: none !important;
-    }
-
-    /* Compact grids */
-    .form-grid,
-    .attribute-table,
-    .combat-grid,
-    .det-grid {
+    /* ========== TRAITS ========== */
+    .traits-list {
         gap: 6px !important;
     }
 
-    /* Labels more compact */
-    label {
-        font-size: 9pt !important;
-        font-weight: 600 !important;
+    .trait-header {
+        display: none !important;
     }
 
-    /* Ensure good contrast */
-    .highlight input,
-    input[readonly] {
+    .trait-row {
+        display: grid !important;
+        grid-template-columns: 1.5fr 3fr !important;
+        gap: 8px !important;
+        padding: 6px 0 !important;
+        border: none !important;
+        margin-bottom: 6px !important;
+        background: white !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .trait-row:last-child {
+        border-bottom: none !important;
+    }
+
+    .trait-row>*:nth-child(3),
+    .trait-row>*:nth-child(4),
+    .trait-row>*:nth-child(5) {
+        display: none !important;
+    }
+
+    .trait-name {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
         background: #f0f0f0 !important;
-        font-weight: bold !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
     }
 
-    /* Page breaks */
+    .trait-desc {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 4px 6px !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        field-sizing: content !important;
+    }
+
+    /* ========== ITEMS ========== */
+    .items-table {
+        gap: 6px !important;
+    }
+
+    .item-header {
+        display: none !important;
+    }
+
+    .item-row {
+        display: grid !important;
+        grid-template-columns: 1.5fr 3fr !important;
+        gap: 8px !important;
+        padding: 6px 0 !important;
+        border: none !important;
+        margin-bottom: 6px !important;
+        background: white !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .item-row:last-child {
+        border-bottom: none !important;
+    }
+
+    .item-row>*:nth-child(3),
+    .item-row>*:nth-child(4),
+    .item-row>*:nth-child(5) {
+        display: none !important;
+    }
+
+    .item-name {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+    }
+
+    .item-desc {
+        border: 1px solid #999 !important;
+        border-bottom: 2px solid #999 !important;
+        background: #f0f0f0 !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 4px 6px !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        overflow: visible !important;
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        field-sizing: content !important;
+    }
+
+    /* ========== PAGE BREAKS ========== */
     .two-column {
         page-break-inside: avoid;
     }
 
-    /* Combat grid - 2 columns layout */
-    .combat-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
+    .section {
+        orphans: 3;
+        widows: 3;
     }
 
-    /* Determination grid - horizontal layout */
-    .det-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
+    /* ========== CHECKBOXES ========== */
+    input[type="checkbox"] {
+        display: none !important;
+    }
+
+    .checkbox-label {
+        display: none !important;
     }
 }
