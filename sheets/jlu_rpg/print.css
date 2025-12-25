@@ -783,6 +783,70 @@
         widows: 3;
     }
 
+    /* ========== IDENTIFICATION LAYOUT ========== */
+    .identification-layout {
+        display: grid !important;
+        grid-template-columns: 150px 1fr !important;
+        gap: 15px !important;
+        align-items: start !important;
+    }
+
+    .identification-image-column {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .identification-fields-column {
+        display: flex !important;
+        flex-direction: column !important;
+        min-width: 0 !important;
+    }
+
+    /* ========== CHARACTER IMAGE ========== */
+    .character-image-group {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Hide drag and drop zone, input, and buttons */
+    .image-drop-zone,
+    .image-url-input,
+    .btn-remove-image,
+    .image-error-message,
+    .image-warning-message {
+        display: none !important;
+    }
+
+    /* Show only the image preview container */
+    .image-preview-container {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        text-align: center !important;
+    }
+
+    /* Style the character image for print */
+    #characterImagePreview {
+        max-width: 100% !important;
+        max-height: 200px !important;
+        width: auto !important;
+        height: auto !important;
+        border: 1px solid #999 !important;
+        border-radius: 4px !important;
+        margin: 0 auto !important;
+        display: block !important;
+        object-fit: contain !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Ensure image doesn't break across pages */
+    .character-image-group {
+        page-break-inside: avoid !important;
+    }
+
     /* ========== CHECKBOXES ========== */
     input[type="checkbox"] {
         display: none !important;
