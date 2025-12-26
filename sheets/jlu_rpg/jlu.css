@@ -1070,9 +1070,18 @@ input[readonly] {
     color: rgba(255, 255, 255, 0.9);
 }
 
-.image-url-input {
+.image-input-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     max-width: 500px;
+    margin-top: 10px;
+}
+
+.image-url-input {
+    width: 100%;
     padding: 10px 15px;
     border: 1px solid var(--border-color);
     border-radius: 6px;
@@ -1080,7 +1089,35 @@ input[readonly] {
     color: var(--text-dark);
     font-size: 0.9rem;
     transition: all 0.2s ease;
-    margin-top: 10px;
+}
+
+.input-divider {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.btn-upload-file {
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.btn-upload-file:hover {
+    background: var(--border-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}
+
+.btn-upload-file:active {
+    transform: translateY(0);
 }
 
 .image-url-input:focus {

@@ -1,26 +1,27 @@
 // ========================================
-// JLU SHEET - MAIN ORCHESTRATOR
+// FDD RPG SHEET - MAIN ORCHESTRATOR
 // Coordinates all components and manages global state
 // ========================================
 
-import CharacterInfo from './components/CharacterInfo.js';
+import HeaderIdentity from './components/HeaderIdentity.js';
 import Attributes from './components/Attributes.js';
-import Combat from './components/Combat.js';
-import Capabilities from './components/Capabilities.js';
-import Limitations from './components/Limitations.js';
-import Knowledge from './components/Knowledge.js';
-import Traits from './components/Traits.js';
-import Items from './components/Items.js';
+import Vitals from './components/Vitals.js';
+import Skills from './components/Skills.js';
+import CombatStatus from './components/CombatStatus.js';
+import HumanitySystem from './components/HumanitySystem.js';
+import CharacterImage from './components/CharacterImage.js';
+import Inventory from './components/Inventory.js';
+import Powers from './components/Powers.js';
 
 import { createStorage } from '../../assets/js/utils/storageFactory.js';
 import { on } from './utils/events.js';
 import { initFAB } from '../../assets/js/fab.js';
 import { showSuccess, showError } from '../../assets/js/components/Notification.js';
 
-// Create storage instance for JLU RPG
-const storage = createStorage('jluRpgSheet', 'jlu-character.json');
+// Create storage instance for FDD RPG
+const storage = createStorage('fddRpgSheet', 'fdd-rpg-character.json');
 
-class JLUSheet {
+class FDDRpgSheet {
     constructor() {
         this.components = {};
         this.autoSaveTimeout = null;
@@ -28,21 +29,54 @@ class JLUSheet {
     }
 
     init() {
-        console.log('Initializing JLU Sheet...');
+        console.log('Initializing FDD RPG Sheet...');
         this.initializeComponents();
         this.initFAB();
         this.setupAutoSave();
+        this.setupCalculations();
         this.loadSheet();
-        console.log('JLU Sheet initialized successfully!');
+        console.log('FDD RPG Sheet initialized successfully!');
+    }
+
+    setupCalculations() {
+        // Setup automatic calculations for Vitals and Inventory components
+        // This will be called after components are initialized and when data changes
+        const updateCalculations = () => {
+            if (this.components.attributes && this.components.headerIdentity) {
+                const attributesData = this.components.attributes.getData();
+                const identityData = this.components.headerIdentity.getData();
+                
+                // Update Vitals calculations
+                if (this.components.vitals) {
+                    this.components.vitals.setCalculationData(attributesData, identityData);
+                }
+                
+                // Update Inventory calculations
+                if (this.components.inventory) {
+                    this.components.inventory.setCalculationData(attributesData, identityData);
+                }
+            }
+        };
+
+        // Initial calculation after a short delay to ensure all components are ready
+        setTimeout(updateCalculations, 200);
+
+        // Recalculate when attributes or identity change
+        on('attributes:updated', () => {
+            updateCalculations();
+        });
+
+        on('identity:updated', () => {
+            updateCalculations();
+        });
     }
 
     initializeComponents() {
-        // Initialize all components with error handling
         try {
-            this.components.characterInfo = new CharacterInfo('character-info-container');
-            console.log('✓ CharacterInfo initialized');
+            this.components.headerIdentity = new HeaderIdentity('header-identity-container');
+            console.log('✓ HeaderIdentity initialized');
         } catch (error) {
-            console.error('✗ CharacterInfo failed:', error);
+            console.error('✗ HeaderIdentity failed:', error);
         }
 
         try {
@@ -53,45 +87,52 @@ class JLUSheet {
         }
 
         try {
-            this.components.combat = new Combat('combat-container');
-            console.log('✓ Combat initialized');
+            this.components.vitals = new Vitals('vitals-container');
+            console.log('✓ Vitals initialized');
         } catch (error) {
-            console.error('✗ Combat failed:', error);
+            console.error('✗ Vitals failed:', error);
         }
 
         try {
-            this.components.limitations = new Limitations('limitations-container');
-            console.log('✓ Limitations initialized');
+            this.components.skills = new Skills('skills-container');
+            console.log('✓ Skills initialized');
         } catch (error) {
-            console.error('✗ Limitations failed:', error);
+            console.error('✗ Skills failed:', error);
         }
 
         try {
-            this.components.knowledge = new Knowledge('knowledge-container');
-            console.log('✓ Knowledge initialized');
+            this.components.combatStatus = new CombatStatus('combat-status-container');
+            console.log('✓ CombatStatus initialized');
         } catch (error) {
-            console.error('✗ Knowledge failed:', error);
+            console.error('✗ CombatStatus failed:', error);
         }
 
         try {
-            this.components.traits = new Traits('traits-container');
-            console.log('✓ Traits initialized');
+            this.components.humanitySystem = new HumanitySystem('humanity-system-container');
+            console.log('✓ HumanitySystem initialized');
         } catch (error) {
-            console.error('✗ Traits failed:', error);
+            console.error('✗ HumanitySystem failed:', error);
         }
 
         try {
-            this.components.capabilities = new Capabilities('capabilities-container');
-            console.log('✓ Capabilities initialized');
+            this.components.characterImage = new CharacterImage('character-image-container');
+            console.log('✓ CharacterImage initialized');
         } catch (error) {
-            console.error('✗ Capabilities failed:', error);
+            console.error('✗ CharacterImage failed:', error);
         }
 
         try {
-            this.components.items = new Items('items-container');
-            console.log('✓ Items initialized');
+            this.components.inventory = new Inventory('inventory-container');
+            console.log('✓ Inventory initialized');
         } catch (error) {
-            console.error('✗ Items failed:', error);
+            console.error('✗ Inventory failed:', error);
+        }
+
+        try {
+            this.components.powers = new Powers('powers-container');
+            console.log('✓ Powers initialized');
+        } catch (error) {
+            console.error('✗ Powers failed:', error);
         }
 
         console.log('Component initialization complete');
@@ -105,13 +146,11 @@ class JLUSheet {
             onImport: async (file) => {
                 try {
                     const sheetData = await storage.importSheet(file);
-                    // Load imported data into components
                     Object.keys(this.components).forEach(key => {
                         if (sheetData[key]) {
                             this.components[key].setData(sheetData[key]);
                         }
                     });
-                    // Save to localStorage
                     storage.saveSheet(sheetData);
                     showSuccess('📥 Ficha importada com sucesso!');
                 } catch (error) {
@@ -125,18 +164,16 @@ class JLUSheet {
     }
 
     setupAutoSave() {
-        // Listen to all update events and trigger auto-save
         const autoSaveEvents = [
-            'character:updated',
-            'attribute:changed',
-            'combat:updated',
-            'determination:changed',
-            'conditions:changed',
-            'capability:updated',
-            'limitations:updated',
-            'traits:updated',
-            'knowledge:updated',
-            'items:updated'
+            'identity:updated',
+            'attributes:updated',
+            'vitals:updated',
+            'skills:updated',
+            'combat-status:updated',
+            'humanity:updated',
+            'image:updated',
+            'inventory:updated',
+            'powers:updated'
         ];
 
         autoSaveEvents.forEach(eventName => {
@@ -147,17 +184,15 @@ class JLUSheet {
     }
 
     scheduleAutoSave() {
-        // Debounce auto-save to avoid excessive saves
         clearTimeout(this.autoSaveTimeout);
         this.autoSaveTimeout = setTimeout(() => {
-            this.saveSheet(true); // Silent save
+            this.saveSheet(true);
         }, 1000);
     }
 
     saveSheet(silent = false) {
         const sheetData = {};
 
-        // Collect data from all components
         Object.keys(this.components).forEach(key => {
             sheetData[key] = this.components[key].getData();
         });
@@ -183,28 +218,26 @@ class JLUSheet {
             return false;
         }
 
-        // Load data into all components
         Object.keys(this.components).forEach(key => {
             if (sheetData[key]) {
                 this.components[key].setData(sheetData[key]);
             }
         });
 
+        // Calculations will be triggered automatically by the event listeners
+        // when components emit their update events after setData
         showSuccess('📂 Ficha carregada!');
         return true;
     }
 
     printSheet() {
-        // Auto-save before printing
         this.saveSheet(true);
 
-        // Close FAB menu
         const fabMenu = document.getElementById('fabMenu');
         const fabToggle = document.getElementById('fabToggle');
         if (fabMenu) fabMenu.classList.remove('active');
         if (fabToggle) fabToggle.classList.remove('active');
 
-        // Remove all placeholders temporarily for printing
         const allInputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
         const placeholders = [];
 
@@ -213,32 +246,26 @@ class JLUSheet {
             input.placeholder = '';
         });
 
-        // Expand all textareas to show full content
         const allTextareas = document.querySelectorAll('textarea');
         const originalHeights = [];
         
         allTextareas.forEach((textarea, index) => {
-            // Store original height
             originalHeights[index] = {
                 element: textarea,
                 height: textarea.style.height,
                 rows: textarea.rows
             };
             
-            // Reset height to auto to calculate scrollHeight
             textarea.style.height = 'auto';
             textarea.style.overflow = 'visible';
             
-            // Set height based on scrollHeight (content height)
             const scrollHeight = textarea.scrollHeight;
             textarea.style.height = scrollHeight + 'px';
             
-            // Ensure no scrollbars
             textarea.style.overflowY = 'visible';
             textarea.style.overflowX = 'visible';
         });
 
-        // Listen for beforeprint to ensure textareas are expanded
         window.addEventListener('beforeprint', () => {
             allTextareas.forEach((textarea) => {
                 textarea.style.height = 'auto';
@@ -246,19 +273,41 @@ class JLUSheet {
                 textarea.style.overflow = 'visible';
                 textarea.style.overflowY = 'visible';
             });
+            
+            // Garantir que os valores do inventário sejam atualizados antes da impressão
+            if (this.components.inventory) {
+                this.components.inventory.updateStats();
+            }
+            
+            // Garantir que os valores sejam visíveis
+            const pesoAtual = document.getElementById('pesoAtual');
+            const pesoMaximo = document.getElementById('pesoMaximo');
+            const espacoAtual = document.getElementById('espacoAtual');
+            
+            if (pesoAtual) {
+                pesoAtual.style.display = 'inline-block';
+                pesoAtual.style.visibility = 'visible';
+                pesoAtual.style.opacity = '1';
+            }
+            if (pesoMaximo) {
+                pesoMaximo.style.display = 'inline-block';
+                pesoMaximo.style.visibility = 'visible';
+                pesoMaximo.style.opacity = '1';
+            }
+            if (espacoAtual) {
+                espacoAtual.style.display = 'inline-block';
+                espacoAtual.style.visibility = 'visible';
+                espacoAtual.style.opacity = '1';
+            }
         }, { once: true });
 
-        // Trigger browser print dialog
         window.print();
 
-        // Restore original state after print dialog closes
         setTimeout(() => {
-            // Restore placeholders
             allInputs.forEach((input, index) => {
                 input.placeholder = placeholders[index];
             });
             
-            // Restore textarea heights
             originalHeights.forEach(({ element, height, rows }) => {
                 element.style.height = height || '';
                 if (rows !== undefined) element.rows = rows;
@@ -278,13 +327,12 @@ class JLUSheet {
     exportSheet() {
         const sheetData = {};
 
-        // Collect data from all components
         Object.keys(this.components).forEach(key => {
             sheetData[key] = this.components[key].getData();
         });
 
-        const heroName = sheetData.characterInfo?.heroName || 'personagem';
-        const filename = `${heroName.replace(/\s+/g, '-').toLowerCase()}-jlu.json`;
+        const characterName = sheetData.headerIdentity?.characterName || 'personagem';
+        const filename = `${characterName.replace(/\s+/g, '-').toLowerCase()}-fdd-rpg.json`;
 
         const success = storage.exportSheet(sheetData, filename);
 
@@ -294,38 +342,11 @@ class JLUSheet {
             showError('❌ Erro ao exportar ficha');
         }
     }
-
-    async handleImport(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        try {
-            const sheetData = await storage.importSheet(file);
-
-            // Load imported data into components
-            Object.keys(this.components).forEach(key => {
-                if (sheetData[key]) {
-                    this.components[key].setData(sheetData[key]);
-                }
-            });
-
-            // Save to localStorage
-            storage.saveSheet(sheetData);
-
-            showSuccess('📥 Ficha importada com sucesso!');
-        } catch (error) {
-            console.error('Import error:', error);
-            showError('❌ Erro ao importar ficha');
-        }
-
-        // Reset file input
-        event.target.value = '';
-    }
 }
 
-// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    window.jluSheet = new JLUSheet();
+    window.fddRpgSheet = new FDDRpgSheet();
 });
 
 // CSS animations are now handled by Notification component
+

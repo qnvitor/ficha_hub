@@ -9,6 +9,7 @@
 function selectSheet(sheetId) {
     const sheetRoutes = {
         'jlu': 'sheets/jlu_rpg/jlu.html',
+        'fdo': 'sheets/fdd_rpg/fdo.html',
         'dnd': 'sheets/dnd5e/dnd.html',
         'generic': 'sheets/generic/generic.html'
     };

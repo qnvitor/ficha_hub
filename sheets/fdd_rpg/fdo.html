@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Filhos do Destino - RPG</title>
+    <link rel="stylesheet" href="../../assets/css/fab.css">
+    <link rel="stylesheet" href="fdo.css">
+    <link rel="stylesheet" href="print.css" media="print">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="../../index.html" class="btn-back-hub" aria-label="Voltar ao Hub">
+                ← Hub
+            </a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema" onclick="toggleTheme()">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <h1>FILHOS DO DESTINO</h1>
+            <h2>FICHA DE PERSONAGEM</h2>
+        </header>
+
+        <!-- Component Containers -->
+        <div class="two-column-layout">
+            <div class="left-column">
+                <div id="character-image-container"></div>
+                <div id="header-identity-container"></div>
+                <div id="attributes-container"></div>
+                <div id="vitals-container"></div>
+                <div id="humanity-system-container"></div>
+            </div>
+            <div class="right-column">
+                <div id="skills-container"></div>
+                <div id="combat-status-container"></div>
+                <div id="powers-container"></div>
+                <div id="inventory-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/theme.js"></script>
+    <script type="module" src="fdo.js"></script>
+</body>
+
+</html>
+

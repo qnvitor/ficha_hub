@@ -1,0 +1,641 @@
+/* ============================================
+   FDD RPG - PRINT STYLE
+   Gothic/Fantasy theme optimized for printing
+   ============================================ */
+
+@media print {
+    @page {
+        margin: 1cm;
+        size: A4;
+    }
+
+    /* Hide non-essential elements */
+    .fab-container,
+    .theme-toggle,
+    .btn-back-hub,
+    button,
+    .btn-add-skill,
+    .btn-add-item,
+    .btn-add-power,
+    .btn-remove-skill,
+    .btn-remove-item,
+    .btn-remove-power {
+        display: none !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background: white !important;
+        color: #000 !important;
+        font-size: 10pt;
+        line-height: 1.4;
+        font-family: 'Georgia', 'Times New Roman', serif;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* HEADER */
+    header {
+        background: white !important;
+        border: 2px solid #000 !important;
+        padding: 15px 0 !important;
+        margin-bottom: 15px !important;
+        page-break-after: avoid;
+        text-align: center !important;
+    }
+
+    header h1 {
+        font-size: 18pt !important;
+        margin-bottom: 5px !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+    }
+
+    header h2 {
+        font-size: 9pt !important;
+        margin-bottom: 0 !important;
+        color: #666 !important;
+        font-weight: 400 !important;
+        text-transform: uppercase !important;
+    }
+
+    /* SECTIONS */
+    .section {
+        page-break-inside: avoid;
+        margin-bottom: 12px !important;
+        background: white !important;
+        border: 1px solid #000 !important;
+        border-radius: 0 !important;
+        padding: 12px !important;
+        box-shadow: none !important;
+    }
+
+    .section h3 {
+        font-size: 11pt !important;
+        margin: 0 0 10px 0 !important;
+        padding: 4px 0 4px 8px !important;
+        border-left: 3px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        background: white !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .section h4 {
+        font-size: 9pt !important;
+        margin: 10px 0 6px 0 !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+
+    /* FORM ELEMENTS */
+    .form-grid {
+        gap: 8px !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    }
+
+    .form-group {
+        margin-bottom: 8px !important;
+    }
+
+    label {
+        font-size: 7.5pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        margin-bottom: 3px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        display: block !important;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        border: 1px solid #666 !important;
+        background: #f5f5f5 !important;
+        color: #000 !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+        border-radius: 0 !important;
+        font-family: inherit !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    input[readonly] {
+        background: #e0e0e0 !important;
+        font-weight: 700 !important;
+        cursor: default !important;
+    }
+
+    textarea {
+        border: 1px solid #666 !important;
+        background: #f5f5f5 !important;
+        color: #000 !important;
+        padding: 4px 6px !important;
+        min-height: auto !important;
+        height: auto !important;
+        resize: none !important;
+        line-height: 1.5 !important;
+        font-size: 9pt !important;
+        font-family: inherit !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        field-sizing: content !important;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: transparent !important;
+        opacity: 0 !important;
+    }
+
+    /* COMPOUND FIELDS */
+    .compound-input-group {
+        display: grid !important;
+        grid-template-columns: 60px 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* ATTRIBUTES */
+    .attributes-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .attribute-block {
+        border: 1px solid #666 !important;
+        padding: 8px !important;
+        background: white !important;
+        page-break-inside: avoid !important;
+    }
+
+    .attribute-row-header {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .attribute-foco-checkbox {
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+    }
+
+    .attribute-foco-checkbox input[type="radio"] {
+        display: none !important;
+    }
+
+    .attribute-foco-checkbox .checkbox-custom {
+        width: 14px !important;
+        height: 14px !important;
+        border: 1.5px solid #000 !important;
+        background: white !important;
+        border-radius: 50% !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    .attribute-foco-checkbox input[type="radio"]:checked + .checkbox-custom {
+        background: white !important;
+        border-color: #000 !important;
+    }
+
+    .attribute-foco-checkbox input[type="radio"]:checked + .checkbox-custom::after {
+        content: '' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 6px !important;
+        height: 6px !important;
+        background: #000 !important;
+        border-radius: 50% !important;
+    }
+
+    .foco-label {
+        font-size: 7pt !important;
+        font-weight: 600 !important;
+        color: #000 !important;
+        text-transform: uppercase !important;
+    }
+
+    .attribute-name {
+        font-weight: 700 !important;
+        color: #000 !important;
+        font-size: 9pt !important;
+        text-transform: uppercase !important;
+        flex: 1 !important;
+    }
+
+    .attribute-inputs {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* VITALS */
+    .vitals-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .triple-input {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 6px !important;
+    }
+
+    /* SKILLS */
+    .skills-header {
+        display: none !important;
+    }
+
+    .skills-list {
+        border: 1px solid #666 !important;
+        padding: 4px !important;
+    }
+
+    .skill-row {
+        display: grid !important;
+        grid-template-columns: 1fr 60px !important;
+        gap: 8px !important;
+        padding: 4px !important;
+        border-bottom: 1px solid #ccc !important;
+        align-items: center !important;
+    }
+
+    .skill-row:last-child {
+        border-bottom: none !important;
+    }
+
+    /* CHECKBOXES */
+    .checkbox-label {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    input[type="checkbox"] {
+        display: none !important;
+    }
+
+    .checkbox-custom {
+        width: 16px !important;
+        height: 16px !important;
+        border: 2px solid #000 !important;
+        background: white !important;
+        display: block !important;
+        position: relative !important;
+    }
+
+    input[type="checkbox"]:checked + .checkbox-custom {
+        background: #000 !important;
+    }
+
+    input[type="checkbox"]:checked + .checkbox-custom::after {
+        content: '✓' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        color: white !important;
+        font-weight: bold !important;
+        font-size: 12px !important;
+    }
+
+    /* DEATH SAVES */
+    .death-saves {
+        display: flex !important;
+        gap: 20px !important;
+        padding: 10px !important;
+        border: 1px solid #666 !important;
+        background: white !important;
+    }
+
+    .death-saves-label {
+        font-weight: 600 !important;
+        font-size: 8pt !important;
+        text-transform: uppercase !important;
+    }
+
+    /* LAYOUT */
+    .two-column-layout {
+        display: block !important;
+    }
+
+    .left-column,
+    .right-column {
+        display: block !important;
+    }
+
+    /* HUMANITY SYSTEM */
+    .humanity-slider {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 15px 5px !important;
+        border-top: 2px solid #000 !important;
+        border-bottom: 2px solid #000 !important;
+        margin-bottom: 10px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .humanity-marker {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 4px !important;
+        flex: 0 0 auto !important;
+        min-width: 35px !important;
+    }
+
+    .marker-dot {
+        width: 8px !important;
+        height: 8px !important;
+        border: 1px solid #000 !important;
+        background: white !important;
+        border-radius: 50% !important;
+    }
+
+    .humanity-marker.selected .marker-dot {
+        background: #000 !important;
+    }
+
+    .marker-label {
+        font-size: 6pt !important;
+        color: #000 !important;
+        font-weight: 600 !important;
+    }
+
+    .humanity-value-display {
+        text-align: center !important;
+        padding: 8px !important;
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+
+    .humanity-current {
+        font-size: 14pt !important;
+        font-weight: 700 !important;
+    }
+
+    /* CHARACTER IMAGE */
+    .character-image-group {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Hide drag and drop zone, input, and buttons */
+    .image-drop-zone,
+    .image-url-input,
+    .btn-remove-image,
+    .image-error-message,
+    .image-warning-message {
+        display: none !important;
+    }
+
+    /* Show only the image preview container */
+    .image-preview-container {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        text-align: center !important;
+    }
+
+    /* Style the character image for print */
+    #characterImagePreview {
+        max-width: 100% !important;
+        max-height: 200px !important;
+        width: auto !important;
+        height: auto !important;
+        border: 1px solid #999 !important;
+        border-radius: 4px !important;
+        margin: 0 auto !important;
+        display: block !important;
+        object-fit: contain !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Ensure image doesn't break across pages */
+    .character-image-group {
+        page-break-inside: avoid !important;
+    }
+
+    /* INVENTORY */
+    .inventory-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        border: 1px solid #000 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .inventory-table thead {
+        background: #e0e0e0 !important;
+    }
+
+    .inventory-table th {
+        padding: 6px !important;
+        text-align: left !important;
+        font-weight: 700 !important;
+        font-size: 8pt !important;
+        text-transform: uppercase !important;
+        border: 1px solid #000 !important;
+    }
+
+    .inventory-table td {
+        padding: 4px 6px !important;
+        border: 1px solid #666 !important;
+        font-size: 9pt !important;
+    }
+
+    .inventory-table input {
+        border: none !important;
+        background: transparent !important;
+        padding: 2px 4px !important;
+        font-size: 9pt !important;
+        width: 100% !important;
+    }
+
+    .inventory-stats {
+        display: flex !important;
+        justify-content: space-around !important;
+        padding: 8px !important;
+        background: #f5f5f5 !important;
+        border-top: 2px solid #000 !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    .stat-item {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* Garantir que o container de stats seja visível */
+    .inventory-stats * {
+        visibility: visible !important;
+        display: inline-block !important;
+    }
+
+    .inventory-stats .stat-item {
+        display: flex !important;
+    }
+
+    .stat-label {
+        font-weight: 600 !important;
+        font-size: 8pt !important;
+        color: #000 !important;
+        display: inline-block !important;
+    }
+
+    .stat-value {
+        font-size: 10pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Garantir que os valores específicos apareçam */
+    #pesoAtual,
+    #pesoMaximo,
+    #espacoAtual {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #000 !important;
+        font-size: 10pt !important;
+        font-weight: 700 !important;
+    }
+
+    .stat-separator {
+        font-size: 9pt !important;
+        color: #666 !important;
+        margin: 0 3px !important;
+        display: inline-block !important;
+    }
+
+    .stat-unit {
+        font-size: 8pt !important;
+        color: #666 !important;
+        font-weight: 400 !important;
+        display: inline-block !important;
+    }
+
+    .stat-value-input {
+        border: 1px solid #666 !important;
+        background: #f5f5f5 !important;
+        padding: 2px 4px !important;
+        font-size: 10pt !important;
+        font-weight: 700 !important;
+        width: 40px !important;
+        text-align: center !important;
+    }
+
+    /* POWERS */
+    .powers-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 15px !important;
+    }
+
+    .power-category {
+        border: 1px solid #666 !important;
+        padding: 10px !important;
+        background: white !important;
+        page-break-inside: avoid !important;
+    }
+
+    .power-category-header {
+        border-bottom: 1px solid #000 !important;
+        padding-bottom: 6px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .power-category-header h4 {
+        margin: 0 !important;
+        font-size: 10pt !important;
+    }
+
+    .power-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .power-item {
+        border: 1px solid #ccc !important;
+        padding: 6px !important;
+        background: white !important;
+        page-break-inside: avoid !important;
+    }
+
+    .power-name {
+        border: 1px solid #666 !important;
+        background: #f5f5f5 !important;
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+        font-weight: 600 !important;
+        width: 100% !important;
+        margin-bottom: 4px !important;
+    }
+
+    .power-description {
+        border: 1px solid #666 !important;
+        background: #f5f5f5 !important;
+        padding: 4px 6px !important;
+        font-size: 8pt !important;
+        width: 100% !important;
+        min-height: auto !important;
+        height: auto !important;
+        resize: none !important;
+        overflow: visible !important;
+        white-space: pre-wrap !important;
+        field-sizing: content !important;
+    }
+
+    .power-empty {
+        display: none !important;
+    }
+
+    /* PAGE BREAKS */
+    .section {
+        orphans: 3;
+        widows: 3;
+    }
+
+    .attribute-block,
+    .power-item,
+    .power-category {
+        page-break-inside: avoid;
+    }
+}
+
