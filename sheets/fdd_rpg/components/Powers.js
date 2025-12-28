@@ -52,8 +52,8 @@ class Powers {
             <section class="section powers">
                 <h3>HABILIDADES</h3>
                 <div class="powers-container">
-                    ${this.renderPowerList('active', this.data.active, 'Habilidades Ativas')}
-                    ${this.renderPowerList('passive', this.data.passive, 'Habilidades Passivas')}
+                    ${this.renderPowerList('active', this.data.active, 'Ativas')}
+                    ${this.renderPowerList('passive', this.data.passive, 'Passivas')}
                 </div>
             </section>
         `;

@@ -48,8 +48,6 @@ export class CharacterImage {
         
         this.container.innerHTML = `
             <div class="character-image-group">
-                <label for="characterImageUrl">Imagem do Personagem</label>
-                
                 <!-- Área de Drag and Drop -->
                 <div class="image-drop-zone" id="imageDropZone" style="display: ${this.data.imageUrl ? 'none' : 'flex'};">
                     <div class="drop-zone-content">

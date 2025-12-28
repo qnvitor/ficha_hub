@@ -27,7 +27,7 @@ class HumanitySystem {
                 <div class="humanity-marker ${isSelected ? 'selected' : ''}" 
                      data-value="${marker}" 
                      title="${marker}%">
-                    <span class="marker-label">${marker}%</span>
+                    <span class="marker-label">${marker}</span>
                     <span class="marker-dot"></span>
                 </div>
             `;
